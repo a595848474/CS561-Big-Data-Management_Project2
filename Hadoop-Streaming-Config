@@ -1,0 +1,17 @@
+hadoop jar /usr/share/hadoop/contrib/streaming/hadoop-streaming-1.2.1.jar \
+-D mapred.map.tasks=10 \
+-D mapred.reduce.tasks=5 \
+-D mapred.job.map.capacity=10 \
+-D mapred.job.reduce.capacity=5 \
+-D stream.map.output.field.separator=\t \
+-D map.output.key.field.separator=\t \
+-D stream.num.map.output.key.fields=2 \
+-D num.key.fields.for.partition=1 \
+-partitioner org.apache.hadoop.mapred.lib.KeyFieldBasedPartitioner \
+-input "/user/hadoop/input/customers.txt" \
+-input "/user/hadoop/input/transactions.txt" \
+-output "/user/hadoop/output/streaming" \
+-mapper "Documents/mapper.py" \
+-file "Documents/mapper.py" \
+-reducer "Documents/reducer.py" \
+-file "Documents/reducer.py"
